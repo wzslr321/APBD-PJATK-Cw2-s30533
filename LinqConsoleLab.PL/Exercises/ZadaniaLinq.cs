@@ -285,7 +285,13 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie15_ProwadzacyILiczbaPrzedmiotow()
     {
-        throw Niezaimplementowano(nameof(Zadanie15_ProwadzacyILiczbaPrzedmiotow));
+        return DaneUczelni.Prowadzacy
+            .GroupJoin(
+                DaneUczelni.Przedmioty,
+                pr => pr.Id,
+                p => p.ProwadzacyId,
+                (pr, przedmioty) => $"{pr.Imie} {pr.Nazwisko} | liczba przedmiotów: {przedmioty.Count()}"
+            );
     }
 
     /// <summary>
@@ -302,7 +308,16 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie16_NajwyzszaOcenaKazdegoStudenta()
     {
-        throw Niezaimplementowano(nameof(Zadanie16_NajwyzszaOcenaKazdegoStudenta));
+        return DaneUczelni.Zapisy
+            .Where(z => z.OcenaKoncowa.HasValue)
+            .Join(
+                DaneUczelni.Studenci,
+                z => z.StudentId,
+                s => s.Id,
+                (z, s) => new { Zapis = z, Student = s }
+            )
+            .GroupBy(x => new { x.Student.Imie, x.Student.Nazwisko })
+            .Select(g => $"{g.Key.Imie} {g.Key.Nazwisko} | najwyższa ocena: {g.Max(x => x.Zapis.OcenaKoncowa!.Value):F1}");
     }
 
     /// <summary>
