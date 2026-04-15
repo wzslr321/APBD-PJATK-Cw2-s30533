@@ -86,7 +86,8 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie05_CzyIstniejeNieaktywneZapisanie()
     {
-        throw Niezaimplementowano(nameof(Zadanie05_CzyIstniejeNieaktywneZapisanie));
+        var wynik = DaneUczelni.Zapisy.Any(z => !z.CzyAktywny);
+        return [$"Czy istnieje nieaktywny zapis: {(wynik ? "Tak" : "Nie")}"];
     }
 
     /// <summary>
@@ -101,7 +102,8 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie06_CzyWszyscyProwadzacyMajaKatedre()
     {
-        throw Niezaimplementowano(nameof(Zadanie06_CzyWszyscyProwadzacyMajaKatedre));
+        var wynik = DaneUczelni.Prowadzacy.All(p => !string.IsNullOrWhiteSpace(p.Katedra));
+        return [$"Czy wszyscy prowadzący mają katedrę: {(wynik ? "Tak" : "Nie")}"];
     }
 
     /// <summary>
