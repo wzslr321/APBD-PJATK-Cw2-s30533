@@ -150,7 +150,10 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie09_TrzyNajnowszeZapisy()
     {
-        throw Niezaimplementowano(nameof(Zadanie09_TrzyNajnowszeZapisy));
+        return DaneUczelni.Zapisy
+            .OrderByDescending(z => z.DataZapisu)
+            .Take(3)
+            .Select(z => $"{z.DataZapisu:yyyy-MM-dd} | student: {z.StudentId} | przedmiot: {z.PrzedmiotId}");
     }
 
     /// <summary>
@@ -166,7 +169,11 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie10_DrugaStronaPrzedmiotow()
     {
-        throw Niezaimplementowano(nameof(Zadanie10_DrugaStronaPrzedmiotow));
+        return DaneUczelni.Przedmioty
+            .OrderBy(p => p.Nazwa)
+            .Skip(2)
+            .Take(2)
+            .Select(p => $"{p.Nazwa} | {p.Kategoria}");
     }
 
     /// <summary>
