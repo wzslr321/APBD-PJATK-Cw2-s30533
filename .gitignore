@@ -1,0 +1,19 @@
+# Build output
+bin/
+obj/
+
+# .NET
+*.user
+*.suo
+.vs/
+
+# Rider / JetBrains
+.idea/
+
+# macOS
+.DS_Store
+
+# NuGet
+*.nupkg
+project.lock.json
+packages/
